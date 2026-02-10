@@ -16,6 +16,11 @@ Experience the thrill of dungeon crawling through a deck of cards with a modern,
 - **Fast Flow Gameplay**: No pauses or confirmations - continuous action
 - **Smart Choices**: Only valid actions are displayed (no disabled options)
 - **Configurable Dungeons**: YAML-based card pool system - customize or create themed dungeons
+- **Agent Support**: Create automated players with custom strategies
+- **Comprehensive Logging**: Track every game event with JSON logs for analysis
+  - Console logging for real-time monitoring
+  - File logging with complete game state
+  - Auto-generated filenames with timestamps
 - **Reproducible Games**: Random seed support for consistent playthroughs
 
 ## 📦 Installation
@@ -136,6 +141,13 @@ cards:
 ```
 
 See [DUNGEON_CONFIGURATION.md](DUNGEON_CONFIGURATION.md) for full documentation.
+
+## 📚 Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Get playing in 2 minutes
+- **[Dungeon Configuration](DUNGEON_CONFIGURATION.md)** - Customize your card pool with YAML
+- **[Logging Guide](LOGGING.md)** - Track and analyze game events
+- **[Agent Development](examples/README.md)** - Create automated players
 
 ## 🏗️ Package Structure
 

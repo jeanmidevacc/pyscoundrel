@@ -20,6 +20,7 @@ from .config import GameConfig
 from .models import CardType
 from .dungeon import Dungeon
 from .agents import Agent
+from .logging import GameLogger, serialize_state
 
 
 class ScoundrelGame:
@@ -38,6 +39,14 @@ class ScoundrelGame:
         self.renderer = GameRenderer()
         self.input_handler = InputHandler(self.renderer.console)
         self.engine: Optional[GameEngine] = None
+
+        # Initialize logger
+        self.logger: Optional[GameLogger] = None
+        if config.log_file or config.log_console:
+            self.logger = GameLogger(
+                log_file=config.log_file,
+                log_console=config.log_console
+            )
 
     def setup(self) -> None:
         """Set up the game."""
@@ -76,6 +85,18 @@ class ScoundrelGame:
             # Start game
             self.engine.start_game()
 
+            # Log game start
+            if self.logger:
+                self.logger.log(
+                    "game_start",
+                    {
+                        "seed": self.config.random_seed,
+                        "starting_health": self.engine.state.player.health,
+                        "agent_mode": self.agent is not None
+                    },
+                    serialize_state(self.engine.state)
+                )
+
             # Main game loop
             while not self.engine.is_game_over:
                 should_continue = self._game_loop()
@@ -87,15 +108,23 @@ class ScoundrelGame:
             # Game over
             self._show_game_over()
 
+            # Close logger
+            if self.logger:
+                self.logger.close()
+
             return 0
 
         except KeyboardInterrupt:
             self.renderer.show_message("\n\nGame interrupted by user.", "warning")
+            if self.logger:
+                self.logger.close()
             return 1
         except Exception as e:
             self.renderer.show_error(f"Unexpected error: {e}")
             import traceback
             traceback.print_exc()
+            if self.logger:
+                self.logger.close()
             return 1
 
     def _game_loop(self) -> bool:
@@ -138,6 +167,17 @@ class ScoundrelGame:
         if result.metadata and result.metadata.get("game_over"):
             return True
 
+        # Log room drawn
+        if self.logger and self.engine.state.current_room:
+            room = self.engine.state.current_room
+            self.logger.log(
+                "room_drawn",
+                {
+                    "cards": [c.name for c in room.cards]
+                },
+                serialize_state(self.engine.state)
+            )
+
         if not self.config.headless:
             self.renderer.show_action_result(result.message)
         return True
@@ -152,12 +192,51 @@ class ScoundrelGame:
         room = state.current_room
         player = state.player
 
+        # Build available choices for logging
+        available_choices = []
+        if state.can_avoid_room:
+            available_choices.append({
+                "type": "avoid_room",
+                "allowed": True
+            })
+
+        for card in room.cards:
+            if card not in room.cards_faced:
+                choice = {
+                    "type": "face_card",
+                    "card": card.name,
+                    "card_type": card.card_type.value,
+                    "value": card.value,
+                    "methods": []
+                }
+
+                if card.card_type == CardType.MONSTER:
+                    choice["methods"].append("barehanded")
+                    if player.has_weapon and player.equipped_weapon.can_kill(card):
+                        choice["methods"].append("weapon")
+                else:
+                    choice["methods"].append("auto")
+
+                available_choices.append(choice)
+
         # Agent mode
         if self.agent:
             # Ask agent if it wants to avoid
             should_avoid = self.agent.decide_avoid_room(state)
 
             if should_avoid and state.can_avoid_room:
+                # Log decision
+                if self.logger:
+                    self.logger.log(
+                        "decision",
+                        {
+                            "phase": "decide_avoid",
+                            "available_choices": available_choices,
+                            "choice": {"type": "avoid_room"}
+                        },
+                        serialize_state(state)
+                    )
+
                 result = self.engine.avoid_room()
                 if not self.config.headless:
                     self.renderer.show_action_result(result.message)
@@ -166,6 +245,23 @@ class ScoundrelGame:
             # Agent chose to face room - get card choice
             available_cards = [c for c in room.cards if c not in room.cards_faced]
             card_idx, combat_method = self.agent.choose_card(state, available_cards)
+
+            # Log decision
+            if self.logger:
+                chosen_card = available_cards[card_idx]
+                self.logger.log(
+                    "decision",
+                    {
+                        "phase": "decide_avoid",
+                        "available_choices": available_choices,
+                        "choice": {
+                            "type": "face_card",
+                            "card": chosen_card.name,
+                            "method": combat_method
+                        }
+                    },
+                    serialize_state(state)
+                )
 
             # Convert from available_cards index to room.cards index
             actual_idx = room.cards.index(available_cards[card_idx])
@@ -211,12 +307,42 @@ class ScoundrelGame:
 
         if avoid_choice and choice == avoid_choice:
             # Avoid room
+            # Log decision
+            if self.logger:
+                self.logger.log(
+                    "decision",
+                    {
+                        "phase": "decide_avoid",
+                        "available_choices": available_choices,
+                        "choice": {"type": "avoid_room"}
+                    },
+                    serialize_state(state)
+                )
+
             result = self.engine.avoid_room()
             self.renderer.show_action_result(result.message)
             return True
 
         if choice in choice_map:
             card_idx, combat_method = choice_map[choice]
+
+            # Log decision
+            if self.logger:
+                chosen_card = room.cards[card_idx]
+                self.logger.log(
+                    "decision",
+                    {
+                        "phase": "decide_avoid",
+                        "available_choices": available_choices,
+                        "choice": {
+                            "type": "face_card",
+                            "card": chosen_card.name,
+                            "method": combat_method if combat_method else "auto"
+                        }
+                    },
+                    serialize_state(state)
+                )
+
             return self._handle_card_selection(card_idx, combat_method)
 
         return True
@@ -336,11 +462,54 @@ class ScoundrelGame:
             else:
                 combat_result = self.engine.fight_monster_barehanded(monster)
 
+            # Log combat
+            if self.logger:
+                combat_data = {
+                    "monster": monster.name,
+                    "monster_value": monster.value,
+                    "method": combat_method if combat_method else "barehanded"
+                }
+
+                if combat_method == "weapon" and self.engine.state.player.has_weapon:
+                    weapon = self.engine.state.player.equipped_weapon
+                    combat_data["weapon"] = weapon.card.name
+                    combat_data["weapon_value"] = weapon.card.value
+
+                if combat_result.damage_taken:
+                    combat_data["damage"] = combat_result.damage_taken
+
+                combat_data["health_after"] = self.engine.state.player.health
+
+                self.logger.log(
+                    "combat",
+                    combat_data,
+                    serialize_state(self.engine.state)
+                )
+
             # Show result
             if not self.config.headless:
                 self.renderer.show_action_result(
                     combat_result.message,
                     damage=combat_result.damage_taken
+                )
+        else:
+            # Non-monster card faced (weapon or potion)
+            if self.logger:
+                faced_card = room.cards[card_num]
+                card_data = {
+                    "card": faced_card.name,
+                    "card_type": faced_card.card_type.value,
+                    "value": faced_card.value
+                }
+
+                if result.health_gained:
+                    card_data["health_gained"] = result.health_gained
+                    card_data["health_after"] = self.engine.state.player.health
+
+                self.logger.log(
+                    "card_faced",
+                    card_data,
+                    serialize_state(self.engine.state)
                 )
 
         return True
@@ -348,6 +517,19 @@ class ScoundrelGame:
     def _show_game_over(self) -> None:
         """Show game over screen."""
         state = self.engine.state
+
+        # Log game over
+        if self.logger:
+            self.logger.log(
+                "game_over",
+                {
+                    "victory": state.victory,
+                    "score": state.score,
+                    "final_health": state.player.health,
+                    "reason": "quit" if not state.victory and state.player.health > 0 else ("victory" if state.victory else "death")
+                },
+                serialize_state(state)
+            )
 
         if self.config.headless:
             # Minimal output for headless mode
@@ -475,6 +657,20 @@ def main() -> int:
         help="Run without UI rendering (requires --agent)"
     )
 
+    parser.add_argument(
+        "--log-file",
+        nargs="?",
+        const="auto",
+        type=str,
+        help="Log game events to file in JSON format (auto-generates filename if no path provided)"
+    )
+
+    parser.add_argument(
+        "--log-console",
+        action="store_true",
+        help="Log game events to console in text format"
+    )
+
     args = parser.parse_args()
 
     # Validate headless mode requires agent
@@ -482,12 +678,38 @@ def main() -> int:
         print("Error: --headless requires --agent to be specified", file=sys.stderr)
         return 1
 
+    # Generate log filename if auto
+    log_file = None
+    if args.log_file:
+        if args.log_file == "auto":
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+            # Determine player type
+            if args.agent:
+                # Extract agent name from filename
+                agent_name = args.agent.stem  # e.g., "smart_agent" from "smart_agent.py"
+                player_type = agent_name
+            else:
+                player_type = "human"
+
+            # Create logs directory
+            log_dir = Path("logs")
+            log_dir.mkdir(exist_ok=True)
+
+            # Generate filename: [player_type]_[timestamp].jsonl
+            log_file = log_dir / f"{player_type}_{timestamp}.jsonl"
+        else:
+            log_file = Path(args.log_file)
+
     # Create configuration
     config = GameConfig(
         random_seed=args.seed,
         show_title_screen=not args.no_title,
         dungeon_path=args.dungeon,
-        headless=args.headless
+        headless=args.headless,
+        log_file=log_file,
+        log_console=args.log_console
     )
 
     # Load agent if specified
