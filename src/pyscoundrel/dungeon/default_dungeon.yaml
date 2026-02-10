@@ -1,0 +1,273 @@
+# Default Dungeon Configuration for PyScoundrel
+# Uses standard playing card notation - customize names as desired
+version: "1.0"
+
+cards:
+  # === MONSTERS (Clubs & Spades) - 26 total ===
+  # Clubs
+  - id: "2♣"
+    name: "2♣"
+    type: monster
+    value: 2
+    count: 1
+
+  - id: "3♣"
+    name: "3♣"
+    type: monster
+    value: 3
+    count: 1
+
+  - id: "4♣"
+    name: "4♣"
+    type: monster
+    value: 4
+    count: 1
+
+  - id: "5♣"
+    name: "5♣"
+    type: monster
+    value: 5
+    count: 1
+
+  - id: "6♣"
+    name: "6♣"
+    type: monster
+    value: 6
+    count: 1
+
+  - id: "7♣"
+    name: "7♣"
+    type: monster
+    value: 7
+    count: 1
+
+  - id: "8♣"
+    name: "8♣"
+    type: monster
+    value: 8
+    count: 1
+
+  - id: "9♣"
+    name: "9♣"
+    type: monster
+    value: 9
+    count: 1
+
+  - id: "10♣"
+    name: "10♣"
+    type: monster
+    value: 10
+    count: 1
+
+  - id: "J♣"
+    name: "J♣"
+    type: monster
+    value: 11
+    count: 1
+
+  - id: "Q♣"
+    name: "Q♣"
+    type: monster
+    value: 12
+    count: 1
+
+  - id: "K♣"
+    name: "K♣"
+    type: monster
+    value: 13
+    count: 1
+
+  - id: "A♣"
+    name: "A♣"
+    type: monster
+    value: 14
+    count: 1
+
+  # Spades
+  - id: "2♠"
+    name: "2♠"
+    type: monster
+    value: 2
+    count: 1
+
+  - id: "3♠"
+    name: "3♠"
+    type: monster
+    value: 3
+    count: 1
+
+  - id: "4♠"
+    name: "4♠"
+    type: monster
+    value: 4
+    count: 1
+
+  - id: "5♠"
+    name: "5♠"
+    type: monster
+    value: 5
+    count: 1
+
+  - id: "6♠"
+    name: "6♠"
+    type: monster
+    value: 6
+    count: 1
+
+  - id: "7♠"
+    name: "7♠"
+    type: monster
+    value: 7
+    count: 1
+
+  - id: "8♠"
+    name: "8♠"
+    type: monster
+    value: 8
+    count: 1
+
+  - id: "9♠"
+    name: "9♠"
+    type: monster
+    value: 9
+    count: 1
+
+  - id: "10♠"
+    name: "10♠"
+    type: monster
+    value: 10
+    count: 1
+
+  - id: "J♠"
+    name: "J♠"
+    type: monster
+    value: 11
+    count: 1
+
+  - id: "Q♠"
+    name: "Q♠"
+    type: monster
+    value: 12
+    count: 1
+
+  - id: "K♠"
+    name: "K♠"
+    type: monster
+    value: 13
+    count: 1
+
+  - id: "A♠"
+    name: "A♠"
+    type: monster
+    value: 14
+    count: 1
+
+  # === WEAPONS (Diamonds) - 9 total ===
+  - id: "2♦"
+    name: "2♦"
+    type: weapon
+    value: 2
+    count: 1
+
+  - id: "3♦"
+    name: "3♦"
+    type: weapon
+    value: 3
+    count: 1
+
+  - id: "4♦"
+    name: "4♦"
+    type: weapon
+    value: 4
+    count: 1
+
+  - id: "5♦"
+    name: "5♦"
+    type: weapon
+    value: 5
+    count: 1
+
+  - id: "6♦"
+    name: "6♦"
+    type: weapon
+    value: 6
+    count: 1
+
+  - id: "7♦"
+    name: "7♦"
+    type: weapon
+    value: 7
+    count: 1
+
+  - id: "8♦"
+    name: "8♦"
+    type: weapon
+    value: 8
+    count: 1
+
+  - id: "9♦"
+    name: "9♦"
+    type: weapon
+    value: 9
+    count: 1
+
+  - id: "10♦"
+    name: "10♦"
+    type: weapon
+    value: 10
+    count: 1
+
+  # === HEALTH POTIONS (Hearts) - 9 total ===
+  - id: "2♥"
+    name: "2♥"
+    type: health_potion
+    value: 2
+    count: 1
+
+  - id: "3♥"
+    name: "3♥"
+    type: health_potion
+    value: 3
+    count: 1
+
+  - id: "4♥"
+    name: "4♥"
+    type: health_potion
+    value: 4
+    count: 1
+
+  - id: "5♥"
+    name: "5♥"
+    type: health_potion
+    value: 5
+    count: 1
+
+  - id: "6♥"
+    name: "6♥"
+    type: health_potion
+    value: 6
+    count: 1
+
+  - id: "7♥"
+    name: "7♥"
+    type: health_potion
+    value: 7
+    count: 1
+
+  - id: "8♥"
+    name: "8♥"
+    type: health_potion
+    value: 8
+    count: 1
+
+  - id: "9♥"
+    name: "9♥"
+    type: health_potion
+    value: 9
+    count: 1
+
+  - id: "10♥"
+    name: "10♥"
+    type: health_potion
+    value: 10
+    count: 1

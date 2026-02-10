@@ -1,0 +1,85 @@
+# Example Custom Dungeon for PyScoundrel
+# A smaller, simpler dungeon for testing
+version: "1.0"
+
+cards:
+  # === MONSTERS (20 total) ===
+  - id: "rat"
+    name: "Giant Rat"
+    type: monster
+    value: 2
+    count: 4
+
+  - id: "spider"
+    name: "Cave Spider"
+    type: monster
+    value: 4
+    count: 3
+
+  - id: "zombie"
+    name: "Zombie"
+    type: monster
+    value: 6
+    count: 3
+
+  - id: "ghoul"
+    name: "Ghoul"
+    type: monster
+    value: 8
+    count: 3
+
+  - id: "vampire"
+    name: "Vampire"
+    type: monster
+    value: 10
+    count: 3
+
+  - id: "dragon"
+    name: "Dragon"
+    type: monster
+    value: 13
+    count: 4
+
+  # === WEAPONS (8 total) ===
+  - id: "stick"
+    name: "Wooden Stick"
+    type: weapon
+    value: 3
+    count: 2
+
+  - id: "knife"
+    name: "Iron Knife"
+    type: weapon
+    value: 5
+    count: 2
+
+  - id: "sword"
+    name: "Steel Sword"
+    type: weapon
+    value: 7
+    count: 2
+
+  - id: "axe"
+    name: "Battle Axe"
+    type: weapon
+    value: 9
+    count: 2
+
+  # === POTIONS (12 total) ===
+  - id: "potion_small"
+    name: "Small Potion"
+    type: health_potion
+    value: 3
+    count: 4
+
+  - id: "potion_medium"
+    name: "Medium Potion"
+    type: health_potion
+    value: 6
+    count: 4
+
+  - id: "potion_large"
+    name: "Large Potion"
+    type: health_potion
+    value: 9
+    count: 4
