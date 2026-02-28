@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.models.weapon"""
 
 import pytest
+
 from pyscoundrel.models.card import Card, CardType
 from pyscoundrel.models.weapon import Weapon
 

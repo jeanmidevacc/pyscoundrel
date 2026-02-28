@@ -1,12 +1,14 @@
 """Unit tests for pyscoundrel.logging.state_serializer"""
 
+from unittest.mock import MagicMock
+
 import pytest
-from unittest.mock import MagicMock, PropertyMock
+
 from pyscoundrel.logging.state_serializer import serialize_card, serialize_state
 from pyscoundrel.models.card import Card, CardType
-from pyscoundrel.models.weapon import Weapon
 from pyscoundrel.models.player import Player
 from pyscoundrel.models.room import Room
+from pyscoundrel.models.weapon import Weapon
 
 pytestmark = pytest.mark.unit
 

@@ -71,6 +71,17 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 
+[tool.ruff.lint.per-file-ignores]
+"src/pyscoundrel/ui/*.py" = ["E501"]
+
+[tool.coverage.run]
+omit = [
+    "src/pyscoundrel/__main__.py",
+    "src/pyscoundrel/ui/*",
+    "src/pyscoundrel/config.py",
+    "src/pyscoundrel/utils/*",
+]
+
 [tool.bandit]
 skips = ["B101"]
 

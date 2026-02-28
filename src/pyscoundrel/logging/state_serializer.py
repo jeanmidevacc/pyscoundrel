@@ -1,6 +1,6 @@
 """Serialize game state for logging."""
 
-from typing import Dict, Any, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 if TYPE_CHECKING:
     from ..game.state import GameState

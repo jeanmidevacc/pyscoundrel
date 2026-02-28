@@ -1,8 +1,8 @@
 """Event definitions for game logging."""
 
 from dataclasses import dataclass
-from typing import Any, Optional, Dict
 from datetime import datetime
+from typing import Any, Dict, Optional
 
 
 @dataclass

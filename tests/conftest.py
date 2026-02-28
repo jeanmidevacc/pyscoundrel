@@ -1,9 +1,10 @@
 """Shared fixtures for the entire test suite."""
 
 import pytest
+
 from pyscoundrel.models.card import Card, CardType
-from pyscoundrel.models.weapon import Weapon
 from pyscoundrel.models.player import Player
+from pyscoundrel.models.weapon import Weapon
 
 
 @pytest.fixture

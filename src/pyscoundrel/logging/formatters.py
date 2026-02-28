@@ -1,6 +1,7 @@
 """Formatters for game event logging."""
 
 import json
+
 from .events import GameEvent
 
 

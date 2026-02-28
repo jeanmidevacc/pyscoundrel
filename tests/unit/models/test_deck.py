@@ -1,10 +1,12 @@
 """Unit tests for pyscoundrel.models.deck"""
 
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
+
+from pyscoundrel.dungeon.card_pool import CardDefinition
 from pyscoundrel.models.card import CardType
 from pyscoundrel.models.deck import Deck
-from pyscoundrel.dungeon.card_pool import CardDefinition
 
 pytestmark = pytest.mark.unit
 

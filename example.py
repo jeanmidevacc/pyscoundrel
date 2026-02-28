@@ -4,10 +4,11 @@ Example script demonstrating programmatic usage of PyScoundrel.
 This shows how to use the game engine and models without the CLI interface.
 """
 
+from pathlib import Path
+
+from pyscoundrel.config import GameConfig
 from pyscoundrel.game.engine import GameEngine
 from pyscoundrel.logging.logger import GameLogger
-from pyscoundrel.config import GameConfig
-from pathlib import Path
 
 
 def simple_game_example():

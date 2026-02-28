@@ -1,8 +1,8 @@
 """Player actions in PyScoundrel."""
 
-from enum import Enum
 from dataclasses import dataclass
-from typing import Optional, Any
+from enum import Enum
+from typing import Optional
 
 
 class ActionType(Enum):

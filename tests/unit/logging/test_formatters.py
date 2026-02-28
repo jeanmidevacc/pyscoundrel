@@ -1,7 +1,9 @@
 """Unit tests for pyscoundrel.logging.formatters"""
 
 import json
+
 import pytest
+
 from pyscoundrel.logging.events import GameEvent
 from pyscoundrel.logging.formatters import JSONFormatter, TextFormatter
 

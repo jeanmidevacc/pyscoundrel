@@ -1,7 +1,9 @@
 """Unit tests for pyscoundrel.dungeon.card_pool"""
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from pyscoundrel.dungeon.card_pool import CardDefinition, Dungeon
 from pyscoundrel.models.card import CardType
 

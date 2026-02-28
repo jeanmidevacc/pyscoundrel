@@ -1,7 +1,7 @@
 """Base agent class for PyScoundrel."""
 
 from abc import ABC, abstractmethod
-from typing import Tuple, TYPE_CHECKING
+from typing import TYPE_CHECKING, Tuple
 
 if TYPE_CHECKING:
     from pyscoundrel.game.state import GameState

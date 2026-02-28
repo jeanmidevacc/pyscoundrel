@@ -1,8 +1,7 @@
 """Input handling for PyScoundrel."""
 
-from typing import Optional, List
 from rich.console import Console
-from rich.prompt import Prompt, Confirm, IntPrompt
+from rich.prompt import Confirm, IntPrompt, Prompt
 
 
 class InputHandler:

@@ -4,23 +4,22 @@ Main entry point for PyScoundrel CLI.
 Run with: python -m pyscoundrel
 """
 
-import sys
 import argparse
 import importlib.util
 import inspect
+import sys
 from pathlib import Path
 from typing import Optional
 
-from .game.engine import GameEngine
-from .game.state import GameState, GamePhase
-from .game.actions import ActionType, Action
-from .ui.renderer import GameRenderer
-from .ui.input import InputHandler
-from .config import GameConfig
-from .models import CardType
-from .dungeon import Dungeon
 from .agents import Agent
+from .config import GameConfig
+from .dungeon import Dungeon
+from .game.engine import GameEngine
+from .game.state import GamePhase
 from .logging import GameLogger, serialize_state
+from .models import CardType
+from .ui.input import InputHandler
+from .ui.renderer import GameRenderer
 
 
 class ScoundrelGame:
@@ -54,7 +53,7 @@ class ScoundrelGame:
                 dungeon = Dungeon(config_path=self.config.dungeon_path)
                 errors = dungeon.validate()
                 if errors:
-                    self.renderer.show_error(f"Dungeon validation errors:")
+                    self.renderer.show_error("Dungeon validation errors:")
                     for error in errors:
                         self.renderer.show_error(f"  - {error}")
                     raise ValueError("Invalid dungeon configuration")

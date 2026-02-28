@@ -1,12 +1,13 @@
 """Shared fixtures and helpers for integration tests."""
 
-import pytest
 from typing import Tuple
+
+import pytest
+
+from pyscoundrel.agents.base import Agent
 from pyscoundrel.game.engine import GameEngine
 from pyscoundrel.game.state import GameState
-from pyscoundrel.agents.base import Agent
-from pyscoundrel.models.card import Card, CardType
-
+from pyscoundrel.models.card import CardType
 
 # ---------------------------------------------------------------------------
 # Concrete agent implementations used across integration tests

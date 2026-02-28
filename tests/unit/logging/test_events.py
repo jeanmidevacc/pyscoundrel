@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.logging.events"""
 
 import pytest
+
 from pyscoundrel.logging.events import GameEvent, create_event
 
 pytestmark = pytest.mark.unit

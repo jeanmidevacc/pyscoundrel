@@ -1,9 +1,10 @@
 """Unit tests for pyscoundrel.game.state"""
 
-import pytest
 from unittest.mock import MagicMock, PropertyMock
-from pyscoundrel.game.state import GameState, GamePhase
-from pyscoundrel.models.player import Player
+
+import pytest
+
+from pyscoundrel.game.state import GamePhase, GameState
 from pyscoundrel.models.card import Card, CardType
 
 pytestmark = pytest.mark.unit

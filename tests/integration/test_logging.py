@@ -1,10 +1,12 @@
 """Integration tests for GameLogger wired with a real game."""
 
 import json
+
 import pytest
+
 from pyscoundrel.game.engine import GameEngine
 from pyscoundrel.logging.logger import GameLogger
-from pyscoundrel.logging.events import create_event
+
 from .conftest import run_game
 
 pytestmark = pytest.mark.integration

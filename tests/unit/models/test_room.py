@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.models.room"""
 
 import pytest
+
 from pyscoundrel.models.card import Card, CardType
 from pyscoundrel.models.room import Room
 

@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.agents.base"""
 
 import pytest
+
 from pyscoundrel.agents.base import Agent
 
 pytestmark = pytest.mark.unit

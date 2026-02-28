@@ -1,7 +1,8 @@
 """Deck implementation for PyScoundrel."""
 
 import random
-from typing import List, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional
+
 from .card import Card
 
 if TYPE_CHECKING:

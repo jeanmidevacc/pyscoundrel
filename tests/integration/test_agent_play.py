@@ -1,7 +1,9 @@
 """Integration tests for agent-driven complete game runs."""
 
 import pytest
+
 from pyscoundrel.game.engine import GameEngine
+
 from .conftest import run_game
 
 pytestmark = pytest.mark.integration

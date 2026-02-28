@@ -1,15 +1,16 @@
 """Game renderer using Rich for PyScoundrel."""
 
-from typing import Optional, List, Tuple
+from typing import List, Optional
+
+from rich import box
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from rich import box
 
+from ..game.state import GamePhase, GameState
+from ..models import Card, CardType
 from .theme import RetroTheme
-from ..game.state import GameState, GamePhase
-from ..models import Card, Room, CardType
 
 
 class GameRenderer:
@@ -178,7 +179,7 @@ class GameRenderer:
                     )
                 else:
                     text.append(" | ", style="muted")
-                    text.append(f"Weapon: Can't use", style="muted")
+                    text.append("Weapon: Can't use", style="muted")
 
             return text
 
@@ -194,7 +195,7 @@ class GameRenderer:
             text = Text()
             text.append(f"Heal {heal} HP", style="heal")
             if heal < card.value:
-                text.append(f" (max HP reached)", style="muted")
+                text.append(" (max HP reached)", style="muted")
             return text
 
         return Text("Unknown", style="muted")
@@ -269,7 +270,7 @@ class GameRenderer:
                     choice_num += 1
 
         # Quit option
-        table.add_row(f"[warning] 0 [/warning]", "[warning]Quit Game[/warning]")
+        table.add_row("[warning] 0 [/warning]", "[warning]Quit Game[/warning]")
 
         self.console.print(table)
         self.console.print()
@@ -374,9 +375,9 @@ class GameRenderer:
         health_color = self.theme.get_health_color(state.player.health, state.player.max_health)
 
         content = Text()
-        content.append(f"Final Health: ", style="header")
+        content.append("Final Health: ", style="header")
         content.append(f"{state.player.health}/{state.player.max_health}\n", style=health_color)
-        content.append(f"Final Score: ", style="header")
+        content.append("Final Score: ", style="header")
         content.append(f"{state.score}", style="score")
 
         panel = Panel(content, title=title, border_style=border, box=box.DOUBLE, padding=(1, 4))

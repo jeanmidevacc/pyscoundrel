@@ -1,7 +1,8 @@
 """Game event logger."""
 
 from pathlib import Path
-from typing import Optional, TextIO, Dict, Any
+from typing import Any, Dict, Optional, TextIO
+
 from .events import GameEvent, create_event
 from .formatters import JSONFormatter, TextFormatter
 

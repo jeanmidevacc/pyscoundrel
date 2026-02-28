@@ -1,7 +1,8 @@
 """Unit tests for pyscoundrel.models.card"""
 
-import pytest
 from dataclasses import FrozenInstanceError
+
+import pytest
 
 from pyscoundrel.models.card import Card, CardType
 

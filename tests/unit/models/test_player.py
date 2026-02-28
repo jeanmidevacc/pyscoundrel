@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.models.player"""
 
 import pytest
+
 from pyscoundrel.models.player import Player
 
 pytestmark = pytest.mark.unit

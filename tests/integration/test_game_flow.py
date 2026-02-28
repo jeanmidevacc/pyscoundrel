@@ -1,7 +1,7 @@
 """Integration tests for the core game flow: engine + models + dungeon."""
 
 import pytest
-from pyscoundrel.game.engine import GameEngine
+
 from pyscoundrel.game.state import GamePhase
 from pyscoundrel.models.card import CardType
 
@@ -140,7 +140,6 @@ class TestWeaponMechanic:
     def test_equipping_weapon_sets_player_weapon(self, engine):
         engine.start_game()
         # Build a deck that starts with a weapon card
-        from pyscoundrel.dungeon.card_pool import Dungeon
         from pyscoundrel.models.card import Card
 
         weapon = Card.from_dungeon_card("sword_01", "Sword", CardType.WEAPON, 8)

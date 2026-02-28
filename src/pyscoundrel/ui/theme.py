@@ -1,7 +1,7 @@
 """Modern theme for PyScoundrel UI."""
 
-from rich.theme import Theme
 from rich.style import Style
+from rich.theme import Theme
 
 
 class RetroTheme:

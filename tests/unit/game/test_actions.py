@@ -1,6 +1,7 @@
 """Unit tests for pyscoundrel.game.actions"""
 
 import pytest
+
 from pyscoundrel.game.actions import Action, ActionResult, ActionType
 
 pytestmark = pytest.mark.unit
