@@ -116,5 +116,8 @@ class Deck:
     def __len__(self) -> int:
         return len(self._cards)
 
+    def __str__(self) -> str:
+        return f"{self.remaining} cards remaining"
+
     def __repr__(self) -> str:
         return f"Deck(remaining={self.remaining})"

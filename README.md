@@ -1,6 +1,7 @@
 # PyScoundrel 🃏
 
 [![CI](https://github.com/jeanmidevacc/pyscoundrel/actions/workflows/ci.yml/badge.svg)](https://github.com/jeanmidevacc/pyscoundrel/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/pyscoundrel)](https://pypi.org/project/pyscoundrel/)
 [![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue)](https://www.python.org)
 
 A Python implementation of **Scoundrel**, a single-player roguelike card game by Zach Gage and Kurt Bieg.
@@ -28,17 +29,23 @@ Experience the thrill of dungeon crawling through a deck of cards with a modern,
 
 ## 📦 Installation
 
+### From PyPI
+
+```bash
+pip install pyscoundrel
+```
+
 ### From source
 
 ```bash
-git clone https://github.com/yourusername/pyscoundrel.git
+git clone https://github.com/jeanmidevacc/pyscoundrel.git
 cd pyscoundrel
-pip install -r requirements.txt
+pip install -e ".[dev]"
 ```
 
 ### Dependencies
 
-- Python 3.8+
+- Python 3.10+
 - rich >= 13.0.0
 - pyyaml >= 6.0.0
 
