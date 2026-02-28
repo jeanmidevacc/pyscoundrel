@@ -57,3 +57,9 @@ example_game.log
 
 # Sphinx
 docs/_build/
+
+# Build artifacts
+dist/
+
+# Game logs
+logs/
