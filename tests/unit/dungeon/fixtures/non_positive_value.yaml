@@ -1,0 +1,7 @@
+version: "1.0"
+cards:
+  - id: bad_01
+    name: Bad Card
+    type: monster
+    value: 0
+    count: 1

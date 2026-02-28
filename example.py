@@ -19,14 +19,12 @@ def simple_game_example():
         enable_logging=True,
         log_version="1.0",
         log_file=Path("example_game.log"),
-        random_seed=42  # For reproducible results
+        random_seed=42,  # For reproducible results
     )
 
     # Initialize logger
     logger = GameLogger(
-        enabled=config.enable_logging,
-        version=config.log_version,
-        output_file=config.log_file
+        enabled=config.enable_logging, version=config.log_version, output_file=config.log_file
     )
 
     # Initialize game engine
@@ -116,10 +114,7 @@ def simple_game_example():
     print(f"Turns Played: {turn}")
 
     # Log game over
-    logger.log_game_over(
-        victory=engine.state.victory,
-        score=engine.score
-    )
+    logger.log_game_over(victory=engine.state.victory, score=engine.score)
 
     logger.close()
 

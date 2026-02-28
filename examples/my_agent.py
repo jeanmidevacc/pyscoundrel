@@ -32,11 +32,7 @@ class Agent(BaseAgent):
         """
         return False
 
-    def choose_card(
-        self,
-        state: GameState,
-        available_cards: list[Card]
-    ) -> tuple[int, str]:
+    def choose_card(self, state: GameState, available_cards: list[Card]) -> tuple[int, str]:
         """
         Choose which card to face and how to handle it.
 

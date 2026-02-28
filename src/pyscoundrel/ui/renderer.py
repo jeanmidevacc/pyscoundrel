@@ -37,7 +37,7 @@ class GameRenderer:
             "[title]SCOUNDREL[/title]\n[muted] A Single Player Rogue-like Card Game by Zach Gage and Kurt Bieg[/muted]",
             box=box.DOUBLE,
             border_style="accent",
-            padding=(1, 4)
+            padding=(1, 4),
         )
         self.console.print(title)
         self.console.print()
@@ -113,7 +113,7 @@ class GameRenderer:
             box=box.ROUNDED,
             border_style="border",
             show_header=True,
-            padding=(0, 1)
+            padding=(0, 1),
         )
 
         table.add_column("Card", justify="center", width=8)
@@ -133,14 +133,14 @@ class GameRenderer:
                     f"[dim]{card.card_type.value}[/dim]",
                     f"[dim]{card.value}[/dim]",
                     "[dim]—[/dim]",
-                    "[dim]✓ Faced[/dim]"
+                    "[dim]✓ Faced[/dim]",
                 )
             else:
                 # Available card
                 type_symbol = {
                     CardType.MONSTER: "⚠",
                     CardType.WEAPON: "⚔",
-                    CardType.HEALTH_POTION: "♥"
+                    CardType.HEALTH_POTION: "♥",
                 }
                 symbol = type_symbol.get(card.card_type, "?")
 
@@ -152,7 +152,7 @@ class GameRenderer:
                     f"[{card_type_color}]{symbol} {card.card_type.value}[/{card_type_color}]",
                     f"[{card_type_color}]{card.value}[/{card_type_color}]",
                     effect,
-                    "[success]Available[/success]"
+                    "[success]Available[/success]",
                 )
 
         self.console.print(table)
@@ -172,8 +172,10 @@ class GameRenderer:
                 if weapon.can_kill(card):
                     damage_weapon = max(0, card.value - weapon.damage)
                     text.append(" | ", style="muted")
-                    text.append(f"With Weapon: {damage_weapon} HP",
-                              style="success" if damage_weapon < damage_bare else "damage")
+                    text.append(
+                        f"With Weapon: {damage_weapon} HP",
+                        style="success" if damage_weapon < damage_bare else "damage",
+                    )
                 else:
                     text.append(" | ", style="muted")
                     text.append(f"Weapon: Can't use", style="muted")
@@ -208,7 +210,7 @@ class GameRenderer:
             box=box.ROUNDED,
             border_style="choice",
             show_header=False,
-            padding=(0, 2)
+            padding=(0, 2),
         )
 
         table.add_column("Choice", justify="center", width=8, style="choice.highlight")
@@ -220,7 +222,7 @@ class GameRenderer:
         if state.phase == GamePhase.DECIDE_AVOID and state.can_avoid_room:
             table.add_row(
                 f"[choice.highlight] {choice_num} [/choice.highlight]",
-                "[choice]Avoid this room[/choice] [muted](place cards at bottom of deck)[/muted]"
+                "[choice]Avoid this room[/choice] [muted](place cards at bottom of deck)[/muted]",
             )
             choice_num += 1
 
@@ -231,7 +233,7 @@ class GameRenderer:
                 type_symbol = {
                     CardType.MONSTER: "⚠",
                     CardType.WEAPON: "⚔",
-                    CardType.HEALTH_POTION: "♥"
+                    CardType.HEALTH_POTION: "♥",
                 }
                 symbol = type_symbol.get(card.card_type, "?")
 
@@ -242,7 +244,7 @@ class GameRenderer:
                     # Barehanded option
                     table.add_row(
                         f"[choice.highlight] {choice_num} [/choice.highlight]",
-                        f"[{card_type_color}]Face {symbol} {card.display_name} - Barehanded[/{card_type_color}] [damage]({damage_bare} HP)[/damage]"
+                        f"[{card_type_color}]Face {symbol} {card.display_name} - Barehanded[/{card_type_color}] [damage]({damage_bare} HP)[/damage]",
                     )
                     choice_num += 1
 
@@ -254,7 +256,7 @@ class GameRenderer:
                             color = "success" if damage_weapon < damage_bare else "damage"
                             table.add_row(
                                 f"[choice.highlight] {choice_num} [/choice.highlight]",
-                                f"[{card_type_color}]Face {symbol} {card.display_name} - With Weapon[/{card_type_color}] [{color}]({damage_weapon} HP)[/{color}]"
+                                f"[{card_type_color}]Face {symbol} {card.display_name} - With Weapon[/{card_type_color}] [{color}]({damage_weapon} HP)[/{color}]",
                             )
                             choice_num += 1
 
@@ -262,15 +264,12 @@ class GameRenderer:
                     # Non-monsters: single option
                     table.add_row(
                         f"[choice.highlight] {choice_num} [/choice.highlight]",
-                        f"[{card_type_color}]Face {symbol} {card.display_name} ({card.card_type.value})[/{card_type_color}]"
+                        f"[{card_type_color}]Face {symbol} {card.display_name} ({card.card_type.value})[/{card_type_color}]",
                     )
                     choice_num += 1
 
         # Quit option
-        table.add_row(
-            f"[warning] 0 [/warning]",
-            "[warning]Quit Game[/warning]"
-        )
+        table.add_row(f"[warning] 0 [/warning]", "[warning]Quit Game[/warning]")
 
         self.console.print(table)
         self.console.print()
@@ -283,7 +282,7 @@ class GameRenderer:
         header = Panel(
             f"[{monster_color}]⚠ Combat: {monster.display_name} (Value: {monster.value})[/{monster_color}]",
             border_style="warning",
-            box=box.ROUNDED
+            box=box.ROUNDED,
         )
         self.console.print(header)
 
@@ -293,7 +292,7 @@ class GameRenderer:
             box=box.ROUNDED,
             border_style="choice",
             show_header=False,
-            padding=(0, 2)
+            padding=(0, 2),
         )
 
         table.add_column("Choice", justify="center", width=8, style="choice.highlight")
@@ -305,7 +304,7 @@ class GameRenderer:
         table.add_row(
             "[choice.highlight] 1 [/choice.highlight]",
             "[choice]Fight Barehanded[/choice]",
-            f"[damage]{damage_bare} HP[/damage]"
+            f"[damage]{damage_bare} HP[/damage]",
         )
 
         # Weapon
@@ -315,27 +314,19 @@ class GameRenderer:
             table.add_row(
                 "[choice.highlight] 2 [/choice.highlight]",
                 f"[choice]Use Weapon ({weapon.card.display_name})[/choice]",
-                f"[{color}]{damage_weapon} HP[/{color}]"
+                f"[{color}]{damage_weapon} HP[/{color}]",
             )
         elif weapon:
             table.add_row(
                 "[dim]2[/dim]",
                 f"[dim]Use Weapon (max kill: {weapon.max_kill_value})[/dim]",
-                "[dim]Can't use[/dim]"
+                "[dim]Can't use[/dim]",
             )
         else:
-            table.add_row(
-                "[dim]2[/dim]",
-                "[dim]No weapon equipped[/dim]",
-                "[dim]—[/dim]"
-            )
+            table.add_row("[dim]2[/dim]", "[dim]No weapon equipped[/dim]", "[dim]—[/dim]")
 
         # Quit
-        table.add_row(
-            "[warning] 0 [/warning]",
-            "[warning]Quit Game[/warning]",
-            ""
-        )
+        table.add_row("[warning] 0 [/warning]", "[warning]Quit Game[/warning]", "")
 
         self.console.print(table)
         self.console.print()
@@ -360,12 +351,14 @@ class GameRenderer:
 
     def show_error(self, message: str) -> None:
         """Show an error message."""
-        self.console.print(Panel(
-            f"[warning]✗ {message}[/warning]",
-            border_style="warning",
-            box=box.ROUNDED,
-            expand=False
-        ))
+        self.console.print(
+            Panel(
+                f"[warning]✗ {message}[/warning]",
+                border_style="warning",
+                box=box.ROUNDED,
+                expand=False,
+            )
+        )
 
     def show_game_over(self, state: GameState) -> None:
         """Display game over screen."""
@@ -386,13 +379,7 @@ class GameRenderer:
         content.append(f"Final Score: ", style="header")
         content.append(f"{state.score}", style="score")
 
-        panel = Panel(
-            content,
-            title=title,
-            border_style=border,
-            box=box.DOUBLE,
-            padding=(1, 4)
-        )
+        panel = Panel(content, title=title, border_style=border, box=box.DOUBLE, padding=(1, 4))
 
         self.console.print(panel)
         self.console.print()
@@ -411,7 +398,7 @@ class GameRenderer:
                 str(i),
                 f"[{card_type_color}]{card.display_name}[/{card_type_color}]",
                 f"[{card_type_color}]{card.card_type.value}[/{card_type_color}]",
-                str(card.value)
+                str(card.value),
             )
 
         self.console.print(table)

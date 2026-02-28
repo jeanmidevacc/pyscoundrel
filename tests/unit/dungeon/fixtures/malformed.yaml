@@ -1,0 +1,4 @@
+cards: [
+  - id: oops
+    bad indent:
+  garbage: [{{

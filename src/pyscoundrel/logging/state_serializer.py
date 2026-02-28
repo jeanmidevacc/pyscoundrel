@@ -25,7 +25,7 @@ def serialize_state(state: "GameState") -> Dict[str, Any]:
             "card": serialize_card(weapon.card),
             "value": weapon.card.value,
             "kills": [m.value for m in weapon.slain_monsters],
-            "last_kill": weapon.last_kill_value
+            "last_kill": weapon.last_kill_value,
         }
     else:
         player_data["weapon"] = None
@@ -49,9 +49,7 @@ def serialize_state(state: "GameState") -> Dict[str, Any]:
         room_data = {
             "cards": [serialize_card(c) for c in room.cards],
             "faced": [serialize_card(c) for c in room.cards_faced],
-            "remaining": [
-                serialize_card(c) for c in room.cards if c not in room.cards_faced
-            ],
+            "remaining": [serialize_card(c) for c in room.cards if c not in room.cards_faced],
         }
 
     return {

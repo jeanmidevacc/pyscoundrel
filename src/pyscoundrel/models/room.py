@@ -12,6 +12,7 @@ class Room:
 
     Players must face 3 of the 4 cards, leaving 1 for the next room.
     """
+
     cards: List[Card] = field(default_factory=list)
     cards_faced: List[Card] = field(default_factory=list)
 

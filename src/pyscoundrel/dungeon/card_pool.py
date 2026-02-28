@@ -10,6 +10,7 @@ from ..models import CardType
 @dataclass
 class CardDefinition:
     """Definition of a card in the dungeon pool."""
+
     id: str
     name: str
     card_type: CardType
@@ -37,7 +38,7 @@ class CardDefinition:
             card_type=type_map[card_type_str],
             value=data["value"],
             count=data["count"],
-            description=data.get("description")
+            description=data.get("description"),
         )
 
 

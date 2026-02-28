@@ -32,8 +32,13 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "mypy>=1.0.0",
+    "ruff>=0.4.0",
+    "vulture>=2.11",
+    "bandit[toml]>=1.7.0",
+    "pip-audit>=2.7.0",
 ]
 
 [project.scripts]
@@ -47,9 +52,30 @@ Issues = "https://github.com/jeanmidevacc/pyscoundrel/issues"
 where = ["src"]
 include = ["pyscoundrel*"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=src/pyscoundrel --cov-report=term-missing --cov-fail-under=80"
+markers = [
+    "unit: fast, isolated unit tests",
+    "integration: tests that wire multiple components together",
+]
+
 [tool.black]
 line-length = 100
 target-version = ['py310']
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.bandit]
+skips = ["B101"]
+
+[tool.vulture]
+min_confidence = 80
 
 [tool.mypy]
 python_version = "3.10"

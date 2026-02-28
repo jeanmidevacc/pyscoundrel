@@ -1,0 +1,18 @@
+version: "1.0"
+cards:
+  - id: goblin_01
+    name: Goblin
+    type: monster
+    value: 5
+    count: 3
+  - id: sword_01
+    name: Iron Sword
+    type: weapon
+    value: 8
+    count: 2
+  - id: potion_01
+    name: Health Potion
+    type: health_potion
+    value: 6
+    count: 2
+    description: "Restores health"

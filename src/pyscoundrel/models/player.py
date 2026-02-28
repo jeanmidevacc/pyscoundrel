@@ -12,6 +12,7 @@ class Player:
 
     Tracks health and equipped weapon.
     """
+
     health: int = 20
     max_health: int = 20
     equipped_weapon: Optional[Weapon] = None

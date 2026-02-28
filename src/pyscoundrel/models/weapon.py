@@ -13,6 +13,7 @@ class Weapon:
     Weapons have a unique mechanic: once used on a monster, they can only
     be used on monsters of equal or lower value than the last monster killed.
     """
+
     card: Card
     slain_monsters: List[Card] = field(default_factory=list)
 
@@ -88,8 +89,7 @@ class Weapon:
         """
         if not self.can_kill(monster):
             raise ValueError(
-                f"Weapon {self.card} cannot kill {monster} "
-                f"(last kill: {self.last_kill_value})"
+                f"Weapon {self.card} cannot kill {monster} (last kill: {self.last_kill_value})"
             )
 
         # Calculate damage: monster value - weapon damage (min 0)

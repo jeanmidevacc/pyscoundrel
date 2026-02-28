@@ -30,11 +30,7 @@ class Agent(ABC):
         pass
 
     @abstractmethod
-    def choose_card(
-        self,
-        state: "GameState",
-        available_cards: list["Card"]
-    ) -> Tuple[int, str]:
+    def choose_card(self, state: "GameState", available_cards: list["Card"]) -> Tuple[int, str]:
         """
         Choose which card to face and how to handle it.
 

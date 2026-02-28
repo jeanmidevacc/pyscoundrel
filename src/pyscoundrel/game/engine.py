@@ -21,7 +21,7 @@ class GameEngine:
         self,
         state: Optional[GameState] = None,
         seed: Optional[int] = None,
-        dungeon: Optional[Dungeon] = None
+        dungeon: Optional[Dungeon] = None,
     ):
         """
         Initialize the game engine.
@@ -37,7 +37,7 @@ class GameEngine:
                 dungeon = Dungeon()  # Loads default_dungeon.yaml
 
             # Create deck from dungeon
-            deck = Deck.from_dungeon(dungeon, shuffle=True, seed=seed)
+            deck = Deck(dungeon, shuffle=True, seed=seed)
 
             player = Player()
             state = GameState(player=player, deck=deck)
@@ -47,10 +47,7 @@ class GameEngine:
     def start_game(self) -> ActionResult:
         """Start a new game."""
         self.state.phase = GamePhase.DRAW_ROOM
-        return ActionResult(
-            success=True,
-            message="Game started! Draw your first room."
-        )
+        return ActionResult(success=True, message="Game started! Draw your first room.")
 
     def draw_room(self) -> ActionResult:
         """
@@ -59,10 +56,7 @@ class GameEngine:
         If there's a leftover card from previous room, use it as the first card.
         """
         if self.state.phase not in (GamePhase.DRAW_ROOM, GamePhase.TURN_COMPLETE):
-            return ActionResult(
-                success=False,
-                message="Cannot draw room in current phase."
-            )
+            return ActionResult(success=False, message="Cannot draw room in current phase.")
 
         # Create new room
         room = Room()
@@ -86,18 +80,14 @@ class GameEngine:
             return ActionResult(
                 success=True,
                 message="Dungeon complete! You survived!",
-                metadata={"game_over": True, "victory": True}
+                metadata={"game_over": True, "victory": True},
             )
 
         self.state.current_room = room
         self.state.start_new_turn()
         self.state.phase = GamePhase.DECIDE_AVOID
 
-        return ActionResult(
-            success=True,
-            message=f"Room drawn: {room}",
-            metadata={"room": room}
-        )
+        return ActionResult(success=True, message=f"Room drawn: {room}", metadata={"room": room})
 
     def avoid_room(self) -> ActionResult:
         """
@@ -106,16 +96,10 @@ class GameEngine:
         Can only avoid if haven't avoided the previous room.
         """
         if not self.state.can_avoid_room:
-            return ActionResult(
-                success=False,
-                message="Cannot avoid two rooms in a row!"
-            )
+            return ActionResult(success=False, message="Cannot avoid two rooms in a row!")
 
         if not self.state.current_room or not self.state.current_room.is_full:
-            return ActionResult(
-                success=False,
-                message="No complete room to avoid!"
-            )
+            return ActionResult(success=False, message="No complete room to avoid!")
 
         # Put all 4 cards at bottom of deck
         self.state.deck.add_to_bottom(self.state.current_room.cards)
@@ -124,8 +108,7 @@ class GameEngine:
         self.state.phase = GamePhase.DRAW_ROOM
 
         return ActionResult(
-            success=True,
-            message="Room avoided. Cards placed at bottom of dungeon."
+            success=True, message="Room avoided. Cards placed at bottom of dungeon."
         )
 
     def face_card(self, card_index: int) -> ActionResult:
@@ -139,17 +122,11 @@ class GameEngine:
             Result indicating what happened
         """
         if self.state.phase not in (GamePhase.DECIDE_AVOID, GamePhase.FACE_CARDS):
-            return ActionResult(
-                success=False,
-                message="Cannot face card in current phase."
-            )
+            return ActionResult(success=False, message="Cannot face card in current phase.")
 
         room = self.state.current_room
         if not room:
-            return ActionResult(
-                success=False,
-                message="No room available!"
-            )
+            return ActionResult(success=False, message="No room available!")
 
         # Update phase to facing cards
         if self.state.phase == GamePhase.DECIDE_AVOID:
@@ -193,7 +170,7 @@ class GameEngine:
             success=True,
             message=f"Fought {monster} barehanded!",
             damage_taken=damage,
-            metadata={"player_died": game_over and not self.state.victory}
+            metadata={"player_died": game_over and not self.state.victory},
         )
 
     def fight_monster_with_weapon(self, monster: Card) -> ActionResult:
@@ -208,15 +185,12 @@ class GameEngine:
         """
         weapon = self.state.player.equipped_weapon
         if not weapon:
-            return ActionResult(
-                success=False,
-                message="No weapon equipped!"
-            )
+            return ActionResult(success=False, message="No weapon equipped!")
 
         if not weapon.can_kill(monster):
             return ActionResult(
                 success=False,
-                message=f"Weapon cannot kill {monster} (last kill: {weapon.last_kill_value})!"
+                message=f"Weapon cannot kill {monster} (last kill: {weapon.last_kill_value})!",
             )
 
         damage = weapon.attack(monster)
@@ -234,7 +208,7 @@ class GameEngine:
             success=True,
             message=message,
             damage_taken=damage,
-            metadata={"player_died": game_over and not self.state.victory}
+            metadata={"player_died": game_over and not self.state.victory},
         )
 
     def _handle_weapon(self, weapon_card: Card) -> ActionResult:
@@ -252,11 +226,7 @@ class GameEngine:
 
         self._check_turn_complete()
 
-        return ActionResult(
-            success=True,
-            message=message,
-            metadata={"weapon": new_weapon}
-        )
+        return ActionResult(success=True, message=message, metadata={"weapon": new_weapon})
 
     def _handle_potion(self, potion: Card) -> ActionResult:
         """Handle using a health potion."""
@@ -265,8 +235,7 @@ class GameEngine:
             self.state.discard([potion])
             self._check_turn_complete()
             return ActionResult(
-                success=True,
-                message=f"Discarded {potion} (already used a potion this turn)."
+                success=True, message=f"Discarded {potion} (already used a potion this turn)."
             )
 
         # Heal the player
@@ -277,11 +246,7 @@ class GameEngine:
 
         self._check_turn_complete()
 
-        return ActionResult(
-            success=True,
-            message=f"Used {potion}!",
-            health_gained=heal_amount
-        )
+        return ActionResult(success=True, message=f"Used {potion}!", health_gained=heal_amount)
 
     def _handle_monster_encounter(self, monster: Card) -> ActionResult:
         """
@@ -293,11 +258,7 @@ class GameEngine:
         weapon = self.state.player.equipped_weapon
         can_use_weapon = weapon and weapon.can_kill(monster)
 
-        metadata = {
-            "monster": monster,
-            "can_use_weapon": can_use_weapon,
-            "weapon": weapon
-        }
+        metadata = {"monster": monster, "can_use_weapon": can_use_weapon, "weapon": weapon}
 
         if can_use_weapon:
             message = f"Encountered {monster}! (Weapon available)"
@@ -307,11 +268,7 @@ class GameEngine:
             else:
                 message = f"Encountered {monster}! (No weapon - must fight barehanded)"
 
-        return ActionResult(
-            success=True,
-            message=message,
-            metadata=metadata
-        )
+        return ActionResult(success=True, message=message, metadata=metadata)
 
     def _check_turn_complete(self) -> None:
         """Check if the current turn is complete (3 cards faced)."""

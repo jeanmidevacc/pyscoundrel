@@ -8,6 +8,7 @@ from ..models import Player, Deck, Room, Card
 
 class GamePhase(Enum):
     """Current phase of the game."""
+
     SETUP = "setup"
     DRAW_ROOM = "draw_room"
     DECIDE_AVOID = "decide_avoid"
@@ -23,6 +24,7 @@ class GameState:
 
     This class represents a snapshot of the game at any point in time.
     """
+
     player: Player
     deck: Deck
     current_room: Optional[Room] = None
@@ -57,8 +59,7 @@ class GameState:
             else:
                 # Player died - negative score from remaining monsters
                 remaining_damage = sum(
-                    card.value for card in self.deck.cards
-                    if card.card_type.name == "MONSTER"
+                    card.value for card in self.deck.cards if card.card_type.name == "MONSTER"
                 )
                 return -(remaining_damage)
         return 0

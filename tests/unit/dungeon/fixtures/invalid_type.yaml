@@ -1,0 +1,7 @@
+version: "1.0"
+cards:
+  - id: x01
+    name: Dragon
+    type: dragon
+    value: 10
+    count: 1

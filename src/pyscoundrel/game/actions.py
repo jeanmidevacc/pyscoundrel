@@ -7,6 +7,7 @@ from typing import Optional, Any
 
 class ActionType(Enum):
     """Types of actions a player can take."""
+
     AVOID_ROOM = "avoid_room"
     FACE_CARD = "face_card"
     FIGHT_BAREHANDED = "fight_barehanded"
@@ -27,6 +28,7 @@ class Action:
         card_index: Optional index of card in room (for face_card actions)
         metadata: Optional additional data about the action
     """
+
     action_type: ActionType
     card_index: Optional[int] = None
     metadata: Optional[dict] = None
@@ -52,6 +54,7 @@ class ActionResult:
         health_gained: Health gained by the player (if any)
         metadata: Additional result data
     """
+
     success: bool
     message: str
     damage_taken: int = 0

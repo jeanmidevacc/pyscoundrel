@@ -30,15 +30,14 @@ class InputHandler:
         """
         while True:
             try:
-                choice = IntPrompt.ask(
-                    "[choice]Enter choice[/choice]",
-                    console=self.console
-                )
+                choice = IntPrompt.ask("[choice]Enter choice[/choice]", console=self.console)
 
                 if min_choice <= choice <= max_choice:
                     return choice
                 else:
-                    self.console.print(f"[warning]Please enter a number between {min_choice} and {max_choice}[/warning]")
+                    self.console.print(
+                        f"[warning]Please enter a number between {min_choice} and {max_choice}[/warning]"
+                    )
 
             except (ValueError, KeyboardInterrupt):
                 self.console.print("[warning]Please enter a valid number[/warning]")

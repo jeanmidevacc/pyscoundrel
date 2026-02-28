@@ -36,11 +36,7 @@ class Agent(BaseAgent):
         """
         return state.player.health <= self.health_threshold
 
-    def choose_card(
-        self,
-        state: GameState,
-        available_cards: list[Card]
-    ) -> tuple[int, str]:
+    def choose_card(self, state: GameState, available_cards: list[Card]) -> tuple[int, str]:
         """
         Choose card strategically based on game state.
 
@@ -81,7 +77,7 @@ class Agent(BaseAgent):
         # Priority 4: Choose lowest damage option
         # Find lowest damage monster or any non-monster
         best_idx = 0
-        best_damage = float('inf')
+        best_damage = float("inf")
 
         for i, card in enumerate(available_cards):
             if card.card_type == CardType.MONSTER:

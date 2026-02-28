@@ -1,0 +1,6 @@
+version: "1.0"
+cards:
+  - name: Goblin
+    type: monster
+    value: 5
+    count: 1

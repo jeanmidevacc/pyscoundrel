@@ -1,0 +1,12 @@
+version: "1.0"
+cards:
+  - id: dup_01
+    name: Card A
+    type: monster
+    value: 5
+    count: 1
+  - id: dup_01
+    name: Card B
+    type: weapon
+    value: 8
+    count: 1
