@@ -41,6 +41,11 @@ dev = [
     "bandit[toml]>=1.7.0",
     "pip-audit>=2.7.0",
 ]
+docs = [
+    "sphinx>=7.0.0",
+    "furo>=2024.1.29",
+    "myst-parser>=2.0.0",
+]
 
 [project.scripts]
 scoundrel = "pyscoundrel.__main__:main"

@@ -54,3 +54,6 @@ dmypy.json
 # Game logs
 game_*.log
 example_game.log
+
+# Sphinx
+docs/_build/
