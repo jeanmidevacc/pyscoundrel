@@ -43,6 +43,9 @@ class CardDefinition:
             description=data.get("description"),
         )
 
+    def __repr__(self) -> str:
+        return f"CardDefinition(id={self.id!r}, name={self.name!r}, type={self.card_type.value}, value={self.value}, count={self.count})"
+
 
 class Dungeon:
     """

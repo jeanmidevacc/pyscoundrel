@@ -4,7 +4,7 @@ PyScoundrel - A Python implementation of the Scoundrel card game.
 A single-player roguelike card game by Zach Gage and Kurt Bieg.
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __author__ = "PyScoundrel Contributors"
 
 from .dungeon.card_pool import Dungeon
