@@ -40,5 +40,4 @@ myst_enable_extensions = ["colon_fence"]
 
 # -- HTML output -------------------------------------------------------------
 html_theme = "furo"
-html_static_path = ["_static"]
 html_title = "PyScoundrel"
