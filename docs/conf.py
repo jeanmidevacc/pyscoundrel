@@ -6,11 +6,13 @@ from pathlib import Path
 # Make the src package importable for autodoc
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
+from pyscoundrel import __version__  # noqa: E402
+
 # -- Project information -----------------------------------------------------
 project = "PyScoundrel"
 copyright = "2024, Jean-Michel Daignan"
 author = "Jean-Michel Daignan"
-release = "0.1.2"
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 extensions = [
