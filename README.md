@@ -4,6 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/pyscoundrel)](https://pypi.org/project/pyscoundrel/)
 [![Docs](https://readthedocs.org/projects/pyscoundrel/badge/?version=latest)](https://pyscoundrel.readthedocs.io/en/latest/)
 [![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue)](https://www.python.org)
+[![Platforms](https://img.shields.io/badge/platform-linux%20|%20macos%20|%20windows-lightgrey)](https://github.com/jeanmidevacc/pyscoundrel/actions/workflows/ci.yml)
 
 A Python implementation of **Scoundrel**, a single-player roguelike card game by Zach Gage and Kurt Bieg.
 
