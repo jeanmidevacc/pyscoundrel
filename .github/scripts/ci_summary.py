@@ -12,7 +12,8 @@ cov_icon = "✅" if pct >= 80 else "❌"
 
 # Test results
 tree = ET.parse("results.xml")
-suite = tree.getroot()
+root = tree.getroot()
+suite = root.find("testsuite") if root.tag == "testsuites" else root
 tests = int(suite.attrib.get("tests", 0))
 failures = int(suite.attrib.get("failures", 0))
 errors = int(suite.attrib.get("errors", 0))
