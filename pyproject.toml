@@ -49,7 +49,7 @@ docs = [
 ]
 
 [project.scripts]
-scoundrel = "pyscoundrel.__main__:main"
+pyscoundrel = "pyscoundrel.__main__:main"
 
 [project.urls]
 Homepage = "https://github.com/jeanmidevacc/pyscoundrel"

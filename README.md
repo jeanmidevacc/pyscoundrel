@@ -18,12 +18,15 @@ pip install pyscoundrel
 
 ```bash
 python -m pyscoundrel
+pyscoundrel
 
 # With a fixed seed (reproducible game)
 python -m pyscoundrel --seed 42
+pyscoundrel --seed 42
 
 # Custom dungeon
 python -m pyscoundrel --dungeon my_dungeon.yaml
+pyscoundrel --dungeon my_dungeon.yaml
 ```
 
 ## Features
